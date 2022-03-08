@@ -369,14 +369,14 @@
     <package id="167" parent="1" name="json_tree"/>
     <package id="168" parent="1" name="rtree"/>
     <package id="169" parent="1" name="rtree_i32"/>
-    <table id="170" parent="2" name="product"/>
-    <table id="171" parent="2" name="sqlite_master">
+    <table id="170" parent="2" name="customer"/>
+    <table id="171" parent="2" name="product"/>
+    <table id="172" parent="2" name="sqlite_master">
       <System>1</System>
     </table>
-    <table id="172" parent="2" name="sqlite_sequence">
+    <table id="173" parent="2" name="sqlite_sequence">
       <System>1</System>
     </table>
-    <table id="173" parent="2" name="user"/>
     <argument id="174" parent="6">
       <ArgumentDirection>R</ArgumentDirection>
     </argument>
@@ -1339,80 +1339,80 @@
       <DataType>integer|0s</DataType>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="494" parent="170" name="name">
+    <column id="494" parent="170" name="fname">
       <Position>2</Position>
-      <DataType>varchar(30)|0s</DataType>
+      <DataType>varchar(20)|0s</DataType>
     </column>
-    <column id="495" parent="170" name="description">
+    <column id="495" parent="170" name="lname">
       <Position>3</Position>
-      <DataType>varchar(300)|0s</DataType>
+      <DataType>varchar(20)|0s</DataType>
     </column>
-    <column id="496" parent="170" name="volume">
+    <column id="496" parent="170" name="email">
       <Position>4</Position>
-      <DataType>varchar(6)|0s</DataType>
+      <DataType>varchar(50)|0s</DataType>
     </column>
-    <column id="497" parent="170" name="image">
+    <column id="497" parent="170" name="password">
       <Position>5</Position>
-      <DataType>varchar(30)|0s</DataType>
+      <DataType>char(60)|0s</DataType>
     </column>
-    <column id="498" parent="170" name="price">
-      <Position>6</Position>
-      <DataType>decimal(4,2 digit)|0s</DataType>
-    </column>
-    <key id="499" parent="170" name="product_pk">
+    <key id="498" parent="170" name="user_pk">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="500" parent="171" name="type">
-      <Position>1</Position>
-      <DataType>text|0s</DataType>
-    </column>
-    <column id="501" parent="171" name="name">
-      <Position>2</Position>
-      <DataType>text|0s</DataType>
-    </column>
-    <column id="502" parent="171" name="tbl_name">
-      <Position>3</Position>
-      <DataType>text|0s</DataType>
-    </column>
-    <column id="503" parent="171" name="rootpage">
-      <Position>4</Position>
-      <DataType>int|0s</DataType>
-    </column>
-    <column id="504" parent="171" name="sql">
-      <Position>5</Position>
-      <DataType>text|0s</DataType>
-    </column>
-    <column id="505" parent="172" name="name">
-      <Position>1</Position>
-    </column>
-    <column id="506" parent="172" name="seq">
-      <Position>2</Position>
-    </column>
-    <column id="507" parent="173" name="id">
+    <column id="499" parent="171" name="id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="508" parent="173" name="first_name">
+    <column id="500" parent="171" name="name">
       <Position>2</Position>
-      <DataType>varchar(20)|0s</DataType>
+      <DataType>varchar(30)|0s</DataType>
     </column>
-    <column id="509" parent="173" name="last_name">
+    <column id="501" parent="171" name="description">
       <Position>3</Position>
-      <DataType>varchar(20)|0s</DataType>
+      <DataType>varchar(300)|0s</DataType>
     </column>
-    <column id="510" parent="173" name="email">
+    <column id="502" parent="171" name="volume">
       <Position>4</Position>
-      <DataType>varchar(50)|0s</DataType>
+      <DataType>varchar(6)|0s</DataType>
     </column>
-    <column id="511" parent="173" name="password">
+    <column id="503" parent="171" name="image">
       <Position>5</Position>
-      <DataType>char(60)|0s</DataType>
+      <DataType>varchar(30)|0s</DataType>
     </column>
-    <key id="512" parent="173" name="user_pk">
+    <column id="504" parent="171" name="price">
+      <Position>6</Position>
+      <DataType>decimal(4,2 digit)|0s</DataType>
+    </column>
+    <key id="505" parent="171" name="product_pk">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
+    <column id="506" parent="172" name="type">
+      <Position>1</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="507" parent="172" name="name">
+      <Position>2</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="508" parent="172" name="tbl_name">
+      <Position>3</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="509" parent="172" name="rootpage">
+      <Position>4</Position>
+      <DataType>int|0s</DataType>
+    </column>
+    <column id="510" parent="172" name="sql">
+      <Position>5</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="511" parent="173" name="name">
+      <Position>1</Position>
+    </column>
+    <column id="512" parent="173" name="seq">
+      <Position>2</Position>
+    </column>
   </database-model>
 </dataSource>
