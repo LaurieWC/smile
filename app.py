@@ -48,6 +48,7 @@ def render_menu_page():
     cur.execute(query)
     product_list = cur.fetchall()
     con.close()
+
     return render_template('menu.html', products=product_list, logged_in=is_logged_in())
 
 
@@ -86,7 +87,7 @@ def render_login_page():
         session['user_id'] = userid
         session['fname'] = firstname
         session['cart'] = []
-        return redirect('/')
+        return redirect('/menu')
     return render_template('login.html', logged_in=is_logged_in())
 
 
@@ -126,8 +127,7 @@ def render_signup_page():
         return redirect('/login')
 
     error = request.args.get('error')
-
-    if error == None:
+    if error is None:
         error = ""
     return render_template('signup.html', error=error, logged_in=is_logged_in())
 
