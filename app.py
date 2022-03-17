@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, session
 import sqlite3
 from sqlite3 import Error
 from flask_bcrypt import Bcrypt
+from datetime import datetime
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -49,7 +50,25 @@ def render_menu_page():
     product_list = cur.fetchall()
     con.close()
 
+    if is_logged_in():
+        first_name = session['fname']
+
     return render_template('menu.html', products=product_list, logged_in=is_logged_in())
+
+
+@app.route('/addtocart/<product_id>')
+def render_addtocart_page(product_id):
+    print("Add {} to cart".format(product_id))
+    userid = session['customer_id']
+    timestamp = datetime.now()
+
+    query = "INSERT INTO cart (customerid, productid, timestamp) VALUES (?, ?, ?)"
+    con = create_connection(DATABASE)
+    cur = con.cursor()
+    cur.execute(query, (userid, product_id, timestamp))
+    con.commit()
+    con.close()
+    return redirect(request.referrer)
 
 
 @app.route('/contact')
@@ -84,7 +103,7 @@ def render_login_page():
             return redirect('/login?error=email+or+password+is+invalid')
 
         session['email'] = email
-        session['user_id'] = userid
+        session['customer_id'] = userid
         session['fname'] = firstname
         session['cart'] = []
         return redirect('/menu')
