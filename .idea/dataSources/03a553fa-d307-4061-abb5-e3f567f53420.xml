@@ -1348,7 +1348,7 @@
       <Position>3</Position>
       <DataType>int|0s</DataType>
     </column>
-    <column id="497" parent="170" name="datetime">
+    <column id="497" parent="170" name="timestamp">
       <Position>4</Position>
       <DataType>datetime|0s</DataType>
     </column>

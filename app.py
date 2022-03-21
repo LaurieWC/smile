@@ -44,7 +44,7 @@ def render_homepage():
 @app.route('/menu')
 def render_menu_page():
     con = create_connection(DATABASE)
-    query = "SELECT name, description, volume, price, image FROM product"
+    query = "SELECT name, description, volume, price, image, id FROM product"
     cur = con.cursor()
     cur.execute(query)
     product_list = cur.fetchall()
@@ -61,8 +61,12 @@ def render_addtocart_page(product_id):
     print("Add {} to cart".format(product_id))
     userid = session['customer_id']
     timestamp = datetime.now()
-
-    query = "INSERT INTO cart (customerid, productid, timestamp) VALUES (?, ?, ?)"
+    try:
+        product_id = int(product_id)
+    except ValueError:
+        print("{} is not am integer".format(product_id))
+        return redirect(request.referrer + "?error=Invalid+product+id")
+    query = "INSERT INTO cart(id,customerid,productid,timestamp) VALUES (NULL,?,?,?)"
     con = create_connection(DATABASE)
     cur = con.cursor()
     cur.execute(query, (userid, product_id, timestamp))
@@ -149,6 +153,24 @@ def render_signup_page():
     if error is None:
         error = ""
     return render_template('signup.html', error=error, logged_in=is_logged_in())
+
+
+@app.route('/cart')
+def render_cart():
+    userid = session['userid']
+    query = "SELECT productid FROM cart WHERE userid=?;"
+    con = create_connection(DATABASE)
+    cur = con.cursor()
+    cur.execute(query, (userid, ))
+    product_ids = cur.fetchall()
+    print(product_ids)  # U - G - L - Y
+
+    # the results from the query are a list of sets, loop through and pull out the ids
+    for i in range(len(product_ids)):
+        product_ids[i] = product_ids[i][0]
+    print(product_ids)
+
+    return "hello"
 
 
 app.run(host='0.0.0.0', debug=True)
