@@ -53,7 +53,7 @@ def render_menu_page():
     if is_logged_in():
         first_name = session['fname']
 
-    return render_template('menu.html', products=product_list, logged_in=is_logged_in())
+    return render_template('menu.html', products=product_list, logged_in=is_logged_in(), fname=first_name)
 
 
 @app.route('/addtocart/<product_id>')
@@ -157,20 +157,35 @@ def render_signup_page():
 
 @app.route('/cart')
 def render_cart():
-    userid = session['userid']
-    query = "SELECT productid FROM cart WHERE userid=?;"
-    con = create_connection(DATABASE)
-    cur = con.cursor()
-    cur.execute(query, (userid, ))
-    product_ids = cur.fetchall()
-    print(product_ids)  # U - G - L - Y
-
-    # the results from the query are a list of sets, loop through and pull out the ids
-    for i in range(len(product_ids)):
-        product_ids[i] = product_ids[i][0]
-    print(product_ids)
-
-    return "hello"
+    if not is_logged_in():
+        return redirect('/menu')
+    else:
+        customer_id = session['customer_id']
+        query = "SELECT productid FROM cart WHERE customerid=?;"
+        con = create_connection(DATABASE)
+        cur = con.cursor()
+        cur.execute(query, (customer_id, ))
+        product_ids = cur.fetchall()
+        for i in range(len(product_ids)):
+            product_ids[i] = product_ids[i][0]
+        unique_product_ids = list(set(product_ids))
+        unique_product_ids.sort()
+        for i in range(len(unique_product_ids)):
+            product_count = product_ids.count(unique_product_ids[i])
+            unique_product_ids[i] = [unique_product_ids[i], product_count]
+        total = 0
+        query = "SELECT name, price FROM product WHERE id = ?"
+        for item in unique_product_ids:
+            cur.execute(query, (item[0], ))
+            item_details = cur.fetchall()
+            item.append(item_details[0][0])
+            item.append(item_details[0][1])
+            item.append(item[1] * item[3])
+            total += item[4]
+        con.close()
+        return render_template('cart.html', cart_data=unique_product_ids,
+                               logged_in=is_logged_in(), total=total,
+                               fname=session['fname'])
 
 
 app.run(host='0.0.0.0', debug=True)
