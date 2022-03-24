@@ -20,7 +20,9 @@ menu
             <p><strong>Volume: </strong>{{ product[2] }}</p>
             <p><strong>Price: </strong>{{ product[3] }}</p>
         {% if logged_in %}
+        <div class="button-group">
         <a href="/addtocart/{{ product[5] }}">Add to cart </a>
+        </div>
         {% endif %}
         </div>
     </div>

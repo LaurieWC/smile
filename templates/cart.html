@@ -21,7 +21,7 @@
                 <td>{{ item[1] }}</td>
                 <td>${{ "{:.2f}".format(item[3]) }}</td>
                 <td>${{ "{:.2f}".format(item[4]) }}</td>
-                <td><a href="removeonefromcart/{{ item[0] }}"></a> </td>
+                <td><a href="removeonefromcart/{{ item[0] }}">x</a> </td>
             </tr>
         {% endfor %}
             <tr>
@@ -29,6 +29,7 @@
                 <td></td>
                 <th>Total</th>
                 <td>${{ "{:.2f}".format(total) }}</td>
+                <td><a href="confirmorder">CONFIRM</a></td>
                 <td></td>
             </tr>
         </tbody>

@@ -52,6 +52,8 @@ def render_menu_page():
 
     if is_logged_in():
         first_name = session['fname']
+    else:
+        first_name = ""
 
     return render_template('menu.html', products=product_list, logged_in=is_logged_in(), fname=first_name)
 
@@ -186,6 +188,32 @@ def render_cart():
         return render_template('cart.html', cart_data=unique_product_ids,
                                logged_in=is_logged_in(), total=total,
                                fname=session['fname'])
+
+
+@app.route('/removeonefromcart/<product_id>')
+def remove_one(product_id):
+    if is_logged_in():
+        customer_id = session['customer_id']
+        query = "DELETE FROM cart WHERE id = (SELECT min(id) FROM cart WHERE customerid = ? AND productid = ?)"
+        con = create_connection(DATABASE)
+        cur = con.cursor()
+        cur.execute(query, (customer_id, product_id))
+        con.commit()
+        con.close()
+    return redirect("/cart")
+
+
+@app.route('/confirmorder')
+def confirm_order():
+    customer_id = session['customer_id']
+    con = create_connection(DATABASE)
+    cur = con.cursor()
+
+    query = "DELETE FROM cart WHERE customerid = ?;"
+    cur.execute(query, (customer_id,))
+    con.commit()
+    con.close()
+    return redirect('/?message=Order+complete')
 
 
 app.run(host='0.0.0.0', debug=True)
